@@ -8,5 +8,5 @@ import gtk
 from disk_manager_gtk.windows import MainWindow
 
 if __name__ == '__main__':
-    MainWindow("dummy").show_all()
+    MainWindow().show_all()
     gtk.main()
