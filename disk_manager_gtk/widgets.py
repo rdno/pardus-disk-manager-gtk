@@ -65,9 +65,16 @@ class DiskItem(gtk.Table):
         """listen signals 
         
         Arguments:
-        - `func`:
+        - `func`: callback function
         """
-        print "TODO:Disk item signals"
+        self.check_btn.connect("pressed", func,
+                               {"action":"toggle",
+                                "name":self._name,
+                                "mount":self._mount})
+        self.edit_btn.connect("clicked", func,
+                              {"action":"edit",
+                               "name":self._name,
+                               "mount":self._mount})
     
 
 class MainWidget(gtk.ScrolledWindow):
@@ -92,8 +99,9 @@ class MainWidget(gtk.ScrolledWindow):
         self.add_with_viewport(self._vbox)
         items = self._get_list()
         for i in items.keys():
-            self._add_item(DiskItem(i,
-                                    items[i]["mount"]))
+            item = DiskItem(i, items[i]["mount"])
+            item.listen_signals(self.on_disk_item)
+            self._add_item(item)
     def _get_list(self):
         #returns disk items like:
         # {'/dev/xxx':{mount:'/', 'entry':True}}
@@ -112,5 +120,18 @@ class MainWidget(gtk.ScrolledWindow):
     def _add_item(self, item):
         #adds item to vbox
         self._vbox.pack_start(item, expand=False)
+    def on_disk_item(self, widget, data):
+        action = data["action"]
+        if action == "toggle":
+            if data["mount"] is not None:
+                self.iface.umount(data["name"])
+            else:
+                if data["name"] in self.iface.entryList():
+                    path = self.iface.getEntry(data["name"])[0]
+                    self.iface.mount(data["name"], path)
+                else:
+                    print "TODO:mount device not in entry list"
+        elif action == "edit":
+            print "TODO:edit"
 
 gobject.type_register(MainWidget)
