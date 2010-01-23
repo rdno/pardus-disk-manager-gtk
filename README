@@ -1,1 +1,9 @@
 Disk Manager GTK is port of Pardus' disk-manager.
+To use:
+make mo files with:
+
+     $ make mo
+
+and start program:
+
+    $ python disk-manager-gtk.py

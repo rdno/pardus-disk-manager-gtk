@@ -1,0 +1,7 @@
+# List of source files containing translatable strings.
+
+#Python Files
+disk-manager-gtk.py
+disk_manager_gtk/__init__.py
+disk_manager_gtk/widgets.py
+disk_manager_gtk/windows.py

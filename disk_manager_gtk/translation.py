@@ -25,7 +25,7 @@ import gettext
 
 APP_NAME="disk_manager_gtk"
 LOCALE_DIR= "/usr/share/locale"
-fallback = True
+fallback = False
 try:
     trans = gettext.translation(APP_NAME, LOCALE_DIR, fallback=fallback)
 except IOError: #dev mode (no install mode)
