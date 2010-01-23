@@ -1,17 +1,29 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-"""Disk Manager gtk widgets module
+"""includes disk_manager_gtk's widgets
 
 DiskItem - disk item container
+
 """
+#
+# Rıdvan Örsvuran (C) 2010
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
 
 import gtk
 import gobject
 
-from dbus.mainloop.glib import DBusGMainLoop
-
-from disk_manager_gtk.backend import Interface
 from disk_manager_gtk.translation import _
 
 class DiskItem(gtk.Table):
@@ -59,79 +71,34 @@ class DiskItem(gtk.Table):
             self._info.set_text(_("Mounted at %s") % self._mount)
             self.check_btn.set_active(True)
         else:
+
             self._info.set_text("")
             self.check_btn.set_active(False)
+    def set_mode(self, mode, mount_path=""):
+        """sets mounted True or False
+        
+        Arguments:
+        - `mode`: True | False
+        - `mount_path`: ex: /media/xxx 
+        """
+        if mode:
+            self._mount = mount_path
+        else:
+            self._mount = None
+        self._set_mounted()
     def listen_signals(self, func):
         """listen signals 
         
         Arguments:
         - `func`: callback function
         """
-        self.check_btn.connect("pressed", func,
+        self.check_btn.connect("clicked", func,
                                {"action":"toggle",
                                 "name":self._name,
-                                "mount":self._mount})
+                                "mount":self._mount,
+                                "widget":self})
         self.edit_btn.connect("clicked", func,
                               {"action":"edit",
                                "name":self._name,
-                               "mount":self._mount})
-    
-
-class MainWidget(gtk.ScrolledWindow):
-    """Main widgets of disk manager"""
-    def __init__(self):
-        """init"""
-        gtk.ScrolledWindow.__init__(self)
-        self._dbus_loop()
-        self._vbox = gtk.VBox(spacing=5)
-        self.iface = Interface()
-        self._set_style()
-        self._create_ui()
-    def _dbus_loop(self):
-        #runs dbus main loop
-        DBusGMainLoop(set_as_default = True)
-    def _set_style(self):
-        self.set_shadow_type(gtk.SHADOW_IN)
-        self.set_policy(gtk.POLICY_NEVER,
-                        gtk.POLICY_AUTOMATIC)
-    def _create_ui(self):
-        #creates ui
-        self.add_with_viewport(self._vbox)
-        items = self._get_list()
-        for i in items.keys():
-            item = DiskItem(i, items[i]["mount"])
-            item.listen_signals(self.on_disk_item)
-            self._add_item(item)
-    def _get_list(self):
-        #returns disk items like:
-        # {'/dev/xxx':{mount:'/', 'entry':True}}
-        items = {}
-        for device in self.iface.deviceList():
-            for part in self.iface.partitionList(device):
-                items[part] = {"mount":None, "entry":False}
-        for entry in self.iface.entryList():
-            if entry.startswith("/dev"):
-                items[entry]["entry"] = True
-            elif entry.startswith("LABEL="):
-                entry = self.iface.getDeviceByLabel(entry.split("=")[1])
-        for device, path  in self.iface.mountList():
-            items[device]["mount"] = path
-        return items
-    def _add_item(self, item):
-        #adds item to vbox
-        self._vbox.pack_start(item, expand=False)
-    def on_disk_item(self, widget, data):
-        action = data["action"]
-        if action == "toggle":
-            if data["mount"] is not None:
-                self.iface.umount(data["name"])
-            else:
-                if data["name"] in self.iface.entryList():
-                    path = self.iface.getEntry(data["name"])[0]
-                    self.iface.mount(data["name"], path)
-                else:
-                    print "TODO:mount device not in entry list"
-        elif action == "edit":
-            print "TODO:edit"
-
-gobject.type_register(MainWidget)
+                               "mount":self._mount,
+                               "widget":self})

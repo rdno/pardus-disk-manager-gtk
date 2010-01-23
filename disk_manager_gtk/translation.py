@@ -1,14 +1,11 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 """Disk Manager gtk translation module
 
 _  - trans.ugettext [usage: _('String to translate')]
 bind_glade_domain - sets translation domain for glade files
 """
-
 #
-# Rıdvan Örsvuran (C) 2009
+# Rıdvan Örsvuran (C) 2010
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,14 +20,16 @@ bind_glade_domain - sets translation domain for glade files
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 import gettext
 
 APP_NAME="disk_manager_gtk"
 LOCALE_DIR= "/usr/share/locale"
+fallback = True
 try:
-    trans = gettext.translation(APP_NAME, LOCALE_DIR, fallback=True)
+    trans = gettext.translation(APP_NAME, LOCALE_DIR, fallback=fallback)
 except IOError: #dev mode (no install mode)
-    trans = gettext.translation(APP_NAME, "locale", fallback=True)
+    trans = gettext.translation(APP_NAME, "locale", fallback=fallback)
 _ = trans.ugettext
 def bind_glade_domain():
     from gtk import glade
