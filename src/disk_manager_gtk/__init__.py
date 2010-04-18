@@ -55,6 +55,9 @@ class DiskManager(gtk.VBox):
         self.pack_start(self.container,
                         fill=True, expand=True)
         self.container.show()
+        self.show_disks()
+    def show_disks(self):
+        """gets disks and show them"""
         self.items = get_disks(self.iface)
         self.container.add_items(self.items)
     def on_disk_item(self, widget, data):
@@ -92,8 +95,10 @@ class DiskManager(gtk.VBox):
         try:
             if func == "mount":
                 self.iface.mount(data["name"], path)
+                self.show_disks()
             elif func == "umount":
                 self.iface.umount(data["name"])
+                self.show_disks()
             elif func == "removeEntry":
                 self.iface.removeEntry(data["device"])
             elif func == "addEntry":
@@ -124,7 +129,6 @@ class DiskManager(gtk.VBox):
         - `signal` : ex: changed
         - `args`: extra arguments
         """
-        print ">", package, signal, args
+        self.show_disks()
 
 gobject.type_register(DiskManager)
-

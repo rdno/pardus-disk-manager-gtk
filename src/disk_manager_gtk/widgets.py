@@ -134,7 +134,6 @@ class DiskItemContainer(gtk.ScrolledWindow):
         item = DiskItem(name, mount_point)
         item.listen_signals(self._func)
         self.vbox.pack_start(item, expand=False)
-        item.show()
     def add_items(self, items):
         """add DiskItem s to UI
 
@@ -145,5 +144,6 @@ class DiskItemContainer(gtk.ScrolledWindow):
             self.vbox.remove(child)
         for i in items.keys():
             self.add_item(i, items[i]["mount"])
+        self.vbox.show_all()
 
 gobject.type_register(DiskItemContainer)
