@@ -35,6 +35,7 @@ from disk_manager_gtk.widgets import DiskItemContainer
 from disk_manager_gtk.windows import EditWindow
 from disk_manager_gtk.utils import get_disks
 from disk_manager_gtk.utils import open_error_dialog
+from disk_manager_gtk.utils import get_default_entry
 
 
 class DiskManager(gtk.VBox):
@@ -70,16 +71,19 @@ class DiskManager(gtk.VBox):
                     path = self.iface.getEntry(data["name"])[0]
                     self._try_to("mount", data, path)
                 else:
-                    self.open_edit_window(data["name"], None)
+                    n = data["name"]
+                    self.open_edit_window(n,
+                                          get_default_entry(n),
+                                          False)
         elif action == "edit":
             short = self.items[data["name"]]["entry"]
             entry = None
             if not short  == None:
                 entry = self.iface.getEntry(short)
             self.open_edit_window(data["name"], entry)
-    def open_edit_window(self, device, entry):
+    def open_edit_window(self, device, entry, auto=True):
         """opens EditWindow"""
-        w = EditWindow(device, entry)
+        w = EditWindow(device, entry, auto)
         w.on_save(self.on_options_save)
         w.show()
     def on_options_save(self, widget, data):

@@ -31,17 +31,19 @@ from disk_manager_gtk.utils import cbox_get_active_value
 
 class EditWindow(gtk.Window):
     """Edit fstab preferences"""
-    def __init__(self, device, entry):
+    def __init__(self, device, entry, auto=True):
         """init
 
         Arguments:
         - `device`: ex: /dev/sda1
         - `entry`: entry object
            ex: (u'/', u'ext4', u'defaults,noatime,user_xattr')
+        - `auto`: auto mount
         """
         gtk.Window.__init__(self)
         self._entry = entry
         self._device = device
+        self._auto = auto
         self._set_style()
         self._create_ui()
         self._listen_signals()
@@ -107,7 +109,7 @@ class EditWindow(gtk.Window):
             self._mp_txt.set_text(self._entry[0])
             cbox_set_active_value(self._fs_box, self._entry[1])
             self._op_txt.set_text(self._entry[2])
-        self._auto_cb.set_active(not self._entry == None)
+        self._auto_cb.set_active(self._auto)
         self._on_auto_cb(self._auto_cb)
     def _prepare_fs_box(self):
         model = gtk.ListStore(str, str)

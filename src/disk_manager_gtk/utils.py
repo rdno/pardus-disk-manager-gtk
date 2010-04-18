@@ -18,6 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import subprocess
+
 import gtk
 import gobject
 
@@ -123,3 +125,11 @@ def open_error_dialog(text):
                                message_format=text)
     dialog.run()
     dialog.destroy()
+
+def getFSType(device):
+    cmd = "/sbin/blkid -s TYPE -o value %s" % device
+    proc = subprocess.Popen(cmd.split(), stdout=subprocess.PIPE)
+    return proc.communicate()[0].strip()
+def get_default_entry(device):
+    fs_type = getFSType(device)
+    return ('', fs_type, FS_OPTIONS[fs_type])
