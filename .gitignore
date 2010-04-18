@@ -4,3 +4,7 @@ TAGS
 .directory
 #*
 *.mo
+*.bak
+*.egg-info
+*.tar.gz
+*.sha1sum

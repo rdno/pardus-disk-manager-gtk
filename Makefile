@@ -4,7 +4,7 @@ LANGS= "en" "tr"
 all:
 	echo "make (tags | clean | pot | mo)"
 tags:
-	etags *.py $(NAME)/*.py
+	etags *.py src/*.py src/$(NAME)/*.py
 clean:
 	find . -name *~ | xargs rm -rf
 	find . -name *.pyc | xargs rm -rf
