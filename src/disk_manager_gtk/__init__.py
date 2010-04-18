@@ -74,13 +74,16 @@ class DiskManager(gtk.VBox):
                     n = data["name"]
                     self.open_edit_window(n,
                                           get_default_entry(n),
-                                          False)
+                                          auto=False)
         elif action == "edit":
             short = self.items[data["name"]]["entry"]
-            entry = None
-            if not short  == None:
+            auto=True
+            if short:
                 entry = self.iface.getEntry(short)
-            self.open_edit_window(data["name"], entry)
+            else:
+                entry = get_default_entry(data["name"])
+                auto = False
+            self.open_edit_window(data["name"], entry, auto)
     def open_edit_window(self, device, entry, auto=True):
         """opens EditWindow"""
         w = EditWindow(device, entry, auto)

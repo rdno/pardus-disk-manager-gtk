@@ -1,0 +1,21 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Categories=Application;Gtk;System;
+Comment[tr]=Disk bölümlerini ve bağlandıkları dizinleri yönetmenizi sağlayan bir uygulama.
+Comment=Disk bölümlerini ve bağlandıkları dizinleri yönetmenizi sağlayan bir uygulama.
+Exec=disk-manager-gtk
+GenericName[tr]=
+GenericName=
+Icon=drive-harddisk
+MimeType=
+Name[tr]=Disk Yöneticisi GTK
+Name=Disk Yöneticisi GTK
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

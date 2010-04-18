@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 19:32+0200\n"
+"POT-Creation-Date: 2010-04-18 20:17+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,55 +16,55 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: disk-manager-gtk.py:37
+#: src/disk-manager-gtk.py:37
 msgid "Disk Manager"
 msgstr ""
 
-#: disk_manager_gtk/__init__.py:137
+#: src/disk_manager_gtk/__init__.py:116
 msgid "Access Denied"
 msgstr ""
 
-#: disk_manager_gtk/widgets.py:56
+#: src/disk_manager_gtk/widgets.py:58
 msgid "Edit"
 msgstr ""
 
-#: disk_manager_gtk/widgets.py:71
+#: src/disk_manager_gtk/widgets.py:79
 #, python-format
 msgid "Mounted at %s"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:50
+#: src/disk_manager_gtk/windows.py:52
 msgid "Settings"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:56
+#: src/disk_manager_gtk/windows.py:58
 msgid "Mount Disk Automatically"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:61
+#: src/disk_manager_gtk/windows.py:63
 msgid "Mount Point:"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:62
+#: src/disk_manager_gtk/windows.py:64
 msgid "File System:"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:63
+#: src/disk_manager_gtk/windows.py:65
 msgid "Options:"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:67
+#: src/disk_manager_gtk/windows.py:69
 msgid "Default Options"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:68
+#: src/disk_manager_gtk/windows.py:70
 msgid "OK"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:69
+#: src/disk_manager_gtk/windows.py:71
 msgid "Cancel"
 msgstr ""
 
-#: disk_manager_gtk/windows.py:84
+#: src/disk_manager_gtk/windows.py:86
 msgid "Edit Settings"
 msgstr ""

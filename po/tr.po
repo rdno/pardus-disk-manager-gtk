@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Disk Manager GTK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 19:05+0200\n"
+"POT-Creation-Date: 2010-04-18 20:17+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Rıdvan Örsvuran <flasherdn@gmail.com>\n"
 "Language-Team:  <flasherdn@gmail.com>\n"
@@ -10,56 +10,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: disk-manager-gtk.py:37
+#: src/disk-manager-gtk.py:37
 msgid "Disk Manager"
 msgstr "Disk Yöneticisi"
 
-#: disk_manager_gtk/__init__.py:137
+#: src/disk_manager_gtk/__init__.py:116
 msgid "Access Denied"
 msgstr "Erişim Reddedildi"
 
-#: disk_manager_gtk/widgets.py:56
+#: src/disk_manager_gtk/widgets.py:58
 msgid "Edit"
 msgstr "Düzenle"
 
-#: disk_manager_gtk/widgets.py:71
+#: src/disk_manager_gtk/widgets.py:79
 #, python-format
 msgid "Mounted at %s"
 msgstr "%s yoluna bağlı"
 
-#: disk_manager_gtk/windows.py:50
+#: src/disk_manager_gtk/windows.py:52
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: disk_manager_gtk/windows.py:56
+#: src/disk_manager_gtk/windows.py:58
 msgid "Mount Disk Automatically"
 msgstr "Diski Otomatik Bağla"
 
-#: disk_manager_gtk/windows.py:61
+#: src/disk_manager_gtk/windows.py:63
 msgid "Mount Point:"
 msgstr "Bağlama Noktası:"
 
-#: disk_manager_gtk/windows.py:62
+#: src/disk_manager_gtk/windows.py:64
 msgid "File System:"
 msgstr "Dosya Sistemi:"
 
-#: disk_manager_gtk/windows.py:63
+#: src/disk_manager_gtk/windows.py:65
 msgid "Options:"
 msgstr "Seçenekler:"
 
-#: disk_manager_gtk/windows.py:67
+#: src/disk_manager_gtk/windows.py:69
 msgid "Default Options"
 msgstr "Öntanımlı Seçenekler"
 
-#: disk_manager_gtk/windows.py:68
+#: src/disk_manager_gtk/windows.py:70
 msgid "OK"
 msgstr "Tamam"
 
-#: disk_manager_gtk/windows.py:69
+#: src/disk_manager_gtk/windows.py:71
 msgid "Cancel"
 msgstr "İptal"
 
-#: disk_manager_gtk/windows.py:84
+#: src/disk_manager_gtk/windows.py:86
 msgid "Edit Settings"
 msgstr "Ayarları Düzenle"
 
