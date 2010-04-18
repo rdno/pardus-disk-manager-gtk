@@ -2,7 +2,7 @@
 *.pyc
 TAGS
 .directory
-#*
+*#
 *.mo
 *.bak
 *.egg-info

@@ -32,39 +32,31 @@ from dbus.mainloop.glib import DBusGMainLoop
 from disk_manager_gtk.backend import Interface
 from disk_manager_gtk.translation import _
 from disk_manager_gtk.widgets import DiskItem
+from disk_manager_gtk.widgets import DiskItemContainer
 from disk_manager_gtk.windows import EditWindow
 from disk_manager_gtk.utils import get_disks
 
 
-class DiskManager(gtk.ScrolledWindow):
+class DiskManager(gtk.VBox):
     """Main widget of disk manager gtk"""
     def __init__(self):
         """init"""
-        gtk.ScrolledWindow.__init__(self)
+        gtk.VBox.__init__(self, spacing=5)
         self._dbus_loop()
-        self._vbox = gtk.VBox(spacing=5)
         self.iface = Interface()
+        self.container = DiskItemContainer(self.on_disk_item)
         self.iface.listenSignals(self.listen_comar)
-        self._set_style()
         self._create_ui()
     def _dbus_loop(self):
         #runs dbus main loop
         DBusGMainLoop(set_as_default = True)
-    def _set_style(self):
-        self.set_shadow_type(gtk.SHADOW_IN)
-        self.set_policy(gtk.POLICY_NEVER,
-                        gtk.POLICY_AUTOMATIC)
     def _create_ui(self):
         #creates ui
-        self.add_with_viewport(self._vbox)
+        self.pack_start(self.container,
+                        fill=True, expand=True)
+        self.container.show()
         self.items = get_disks(self.iface)
-        for i in self.items.keys():
-            item = DiskItem(i, self.items[i]["mount"])
-            item.listen_signals(self.on_disk_item)
-            self._add_item(item)
-    def _add_item(self, item):
-        #adds item to vbox
-        self._vbox.pack_start(item, expand=False)
+        self.container.add_items(self.items)
     def on_disk_item(self, widget, data):
         action = data["action"]
         if action == "toggle":
