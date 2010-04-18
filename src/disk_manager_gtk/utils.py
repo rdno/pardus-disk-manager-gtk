@@ -40,7 +40,7 @@ FS_OPTIONS = {
 }
 
 def cbox_set_active_value(combobox, value):
-    """sets value's index active 
+    """sets value's index active
     model like [user_text, value]
     Arguments:
     - `combobox`: gtk.ComboBox
@@ -62,6 +62,39 @@ def cbox_get_active_value(combobox):
         return None
     return model[active][1]
 
+def get_disks(iface):
+    """returns disk dict like:
+    {
+      {'/dev/xxx':{mount:'/', entry:/dev/xxx}},
+      {'/dev/xxy':{mount:'/media/xxy', entry:None}},
+      {'/dev/xyy':{mount:None entry:None}}
+    }
 
+    Arguments:
+    - `iface`: Interface()
+    """
+    disks = {}
 
+    def set_disk(disk, mount=None, entry=None):
+        if not disk in disks:
+            disks[disk] = {"mount":None, "entry":None}
+        if mount:
+            disks[disk]["mount"] = mount
+        if entry:
+            disks[disk]["entry"] = entry
+
+    for device in iface.deviceList():
+        for part in iface.partitionList(device):
+            set_disk(part)
+    for entry in iface.entryList():
+        if entry.startswith("/dev"):
+            set_disk(entry, entry=entry)
+        elif entry.startswith("LABEL="):
+            set_disk(iface.getDeviceByLabel(entry.split("=")[1]),
+                     entry=entry)
+    for device, path in iface.mountList():
+        set_disk(device,
+                 mount=path)
+
+    return disks
 

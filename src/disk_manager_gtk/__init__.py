@@ -33,6 +33,8 @@ from disk_manager_gtk.backend import Interface
 from disk_manager_gtk.translation import _
 from disk_manager_gtk.widgets import DiskItem
 from disk_manager_gtk.windows import EditWindow
+from disk_manager_gtk.utils import get_disks
+
 
 class DiskManager(gtk.ScrolledWindow):
     """Main widget of disk manager gtk"""
@@ -55,35 +57,11 @@ class DiskManager(gtk.ScrolledWindow):
     def _create_ui(self):
         #creates ui
         self.add_with_viewport(self._vbox)
-        self._create_list()
+        self.items = get_disks(self.iface)
         for i in self.items.keys():
             item = DiskItem(i, self.items[i]["mount"])
             item.listen_signals(self.on_disk_item)
             self._add_item(item)
-    def _create_list(self):
-        #returns disk items like:
-        # {'/dev/xxx':{mount:'/', 'entry':/dev/sda}}
-        self.items = {}
-        for device in self.iface.deviceList():
-            for part in self.iface.partitionList(device):
-                self._set_property(part)
-        for entry in self.iface.entryList():
-            if entry.startswith("/dev"):
-                self._set_property(entry, "entry", entry)
-            elif entry.startswith("LABEL="):
-                n = entry
-                entry = self.iface.getDeviceByLabel(entry.split("=")[1])
-                self._set_property(entry, "entry", n)
-        for device, path  in self.iface.mountList():
-            self._set_property(device, "mount", path)
-    def _set_property(self, obj, prop="", value=""):
-        #set obj's prop (if obj doesn't exist create)
-        #if prop&value == "" only create obj
-        #ex: self.items[obj][prop] = value
-        if not self.items.has_key(obj):
-            self.items[obj] = {"mount":None, "entry":None}
-        if (not prop == "") & (not value==""):
-            self.items[obj][prop] = value
     def _add_item(self, item):
         #adds item to vbox
         self._vbox.pack_start(item, expand=False)
@@ -148,14 +126,13 @@ class DiskManager(gtk.ScrolledWindow):
         dialog.destroy()
     def listen_comar(self, package, signal, args):
         """listen comar signals
-        
+
         Arguments:
         - `package`: ex : mudur
         - `signal` : ex: changed
         - `args`: extra arguments
         """
         print ">", package, signal, args
-    
 
 gobject.type_register(DiskManager)
 
