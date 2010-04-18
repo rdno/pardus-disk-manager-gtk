@@ -31,10 +31,10 @@ from dbus.mainloop.glib import DBusGMainLoop
 
 from disk_manager_gtk.backend import Interface
 from disk_manager_gtk.translation import _
-from disk_manager_gtk.widgets import DiskItem
 from disk_manager_gtk.widgets import DiskItemContainer
 from disk_manager_gtk.windows import EditWindow
 from disk_manager_gtk.utils import get_disks
+from disk_manager_gtk.utils import open_error_dialog
 
 
 class DiskManager(gtk.VBox):
@@ -109,18 +109,12 @@ class DiskManager(gtk.VBox):
             #widget.set_mode(func == "mount", path)
         except Exception, e:
             if "Comar.PolicyKit" in e._dbus_error_name:
-                self.open_error_dialog(_("Access Denied"))
+                open_error_dialog(_("Access Denied"))
             else:
-                self.open_error_dialog(unicode(e))
+                open_error_dialog(unicode(e))
             if (func == "mount") | (func == "umount"):
                 widget = data["widget"]
                 widget.set_mode(not func == "mount")
-    def open_error_dialog(self, text):
-        dialog = gtk.MessageDialog(type=gtk.MESSAGE_ERROR,
-                                   buttons=gtk.BUTTONS_OK,
-                                   message_format=text)
-        dialog.run()
-        dialog.destroy()
     def listen_comar(self, package, signal, args):
         """listen comar signals
 

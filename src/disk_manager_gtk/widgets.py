@@ -26,6 +26,7 @@ import gtk
 import gobject
 
 from disk_manager_gtk.translation import _
+from disk_manager_gtk.utils import get_icon
 
 class DiskItem(gtk.Table):
     """disk item"""
@@ -37,6 +38,7 @@ class DiskItem(gtk.Table):
         - `mount`: mount point
         """
         gtk.Table.__init__(self, rows=2, columns=4)
+        self.set_col_spacings(5)
         self._name = name
         self._mount = mount
         self._create_ui()
@@ -56,10 +58,16 @@ class DiskItem(gtk.Table):
         self.edit_btn = gtk.Button(_("Edit"))
 
         self.attach(self.check_btn, 0, 1, 0, 2,
-
                     gtk.SHRINK, gtk.SHRINK)
-        #TODO:self.attach(icon goes here, 1, 2, 0, 2,
-        #           gtk.SHRINK, gtk.SHRINK)
+
+        if self._mount:
+            pixbuf = get_icon("drive-harddisk", 32)
+        else:
+            pixbuf = get_icon("drive-removable-media", 32)
+
+        self._icon = gtk.image_new_from_pixbuf(pixbuf)
+        self.attach(self._icon, 1, 2, 0, 2,
+                   gtk.SHRINK, gtk.SHRINK)
         self.attach(self._name_lb, 2, 3, 0, 1,
                     gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         self.attach(self._info, 2, 3, 1, 2,

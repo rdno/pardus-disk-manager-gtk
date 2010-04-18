@@ -36,19 +36,19 @@ class MainWindow(gtk.Window):
     def _set_style(self):
         self.set_title(_("Disk Manager"))
         self.set_default_size(483, 300)
+        self.set_icon_name("drive-harddisk")
     def _create_ui(self):
         self.add(self.manager)
     def _listen_signals(self):
         self.connect("destroy", gtk.main_quit)
     def run(self, arg):
         """run app
-        
+
         Arguments:
         - `arg`: sys.argv
         """
         self.show_all()
         gtk.main()
-    
 
 if __name__ == '__main__':
     import sys

@@ -33,7 +33,7 @@ class EditWindow(gtk.Window):
     """Edit fstab preferences"""
     def __init__(self, device, entry):
         """init
-        
+
         Arguments:
         - `device`: ex: /dev/sda1
         - `entry`: entry object
@@ -57,7 +57,7 @@ class EditWindow(gtk.Window):
         vbox.pack_start(self._auto_cb, expand=False)
         self._table = gtk.Table(rows=4, columns = 3)
         vbox.add(self._table)
-        
+
         self._mp_lb = gtk.Label(_("Mount Point:"))
         self._fs_lb = gtk.Label(_("File System:"))
         self._op_lb = gtk.Label(_("Options:"))
@@ -131,8 +131,8 @@ class EditWindow(gtk.Window):
     def _on_auto_cb(self, widget):
         self._table.set_sensitive(widget.get_active())
     def on_save(self, func):
-        """on ok button clicked 
-        
+        """on ok button clicked
+
         Arguments:
         - `func`: callback function
         """
@@ -150,9 +150,6 @@ class EditWindow(gtk.Window):
                 return "same" #if same , do nothing
             return r
         return None
-    
-gobject.type_register(EditWindow)    
-        
-        
-        
+
+gobject.type_register(EditWindow)
 
